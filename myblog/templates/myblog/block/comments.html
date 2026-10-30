@@ -1,0 +1,47 @@
+<div class="card my-4 border-0 shadow-sm">
+  <h5 class="card-header">Прокомментируй:</h5>
+  <div class="card-body bg-white">
+    
+    {% if user.is_authenticated %}
+        <!-- Если пользователь вошел, показываем форму -->
+        <p class="text-muted small">Вы комментируете как <strong>{{ user.username }}</strong></p>
+        <form method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            {{ comment_form.text }}
+          </div>
+          <button type="submit" class="btn btn-pink mt-2">Отправить</button>
+        </form>
+    {% else %}
+        <!-- Если гость, показываем предложение войти -->
+        <div class="alert alert-info">
+          <a href="{% url 'login' %}" class="alert-link">Войдите</a> или 
+          <a href="{% url 'signup' %}" class="alert-link">зарегистрируйтесь</a>, 
+          чтобы оставить комментарий.
+        </div>
+    {% endif %}
+    
+  </div>
+</div>
+
+<!-- Вывод комментариев -->
+{% for comment in post.comments.all %}
+<div class="card my-3 border-0 shadow-sm">
+  <div class="card-body d-flex">
+    <div class="flex-shrink-0">
+      <div class="rounded-circle bg-pink text-white d-flex align-items-center justify-content-center" style="width: 50px; height: 50px; font-size: 20px;">
+        {{ comment.name|first|upper }}
+      </div>
+    </div>
+    <div class="flex-grow-1 ms-3">
+      <div class="d-flex justify-content-between">
+        <h5 class="mt-0 text-pink">{{ comment.name }}</h5>
+        <small class="text-muted">{{ comment.created_date|date:"d.m.Y H:i" }}</small>
+      </div>
+      {{ comment.text }}
+    </div>
+  </div>
+</div>
+{% empty %}
+    <p class="text-muted">Комментариев пока нет. Будьте первым!</p>
+{% endfor %}

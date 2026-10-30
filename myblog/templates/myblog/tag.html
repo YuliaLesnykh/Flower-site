@@ -1,0 +1,62 @@
+{% extends 'myblog/base.html' %}
+{% load static %}
+
+{% block title %}Посты с тегом #{{ tag.name }}{% endblock %}
+
+{% block content %}
+
+<section class="my-carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active" style="background-color: #e83e8c!important">
+      <div class="carousel-caption d-none d-md-block py-3">
+        <h1 class="m-0 text-white">Тег: #{{ tag.name }}</h1>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="all-posts mt-4">
+  <div class="container">
+    
+    <div class="my-4">
+      <span class="lead">Другие теги: </span>
+      {% for t in common_tags %}
+        <a href="{% url 'tag' t.slug %}" class="badge text-bg-info text-decoration-none mb-2">#{{ t.name }}</a>
+      {% endfor %}
+    </div>
+
+    <div class="row">
+      {% for post in posts %}
+      <div class="col-md-4">
+        <div class="card mb-4 shadow-sm border-0">
+          {% if post.image %}
+            <img src="{{ post.image.url }}" alt="{{ post.title }}" class="card-img-top">
+          {% endif %}
+          <div class="card-body">
+            <h4 class="card-title">{{ post.title }}</h4>
+            <p class="card-text">{{ post.content|truncatechars:120 }}</p>
+            
+            <div class="mb-2">
+              {% for pt in post.tags.all %}
+                <a href="{% url 'tag' pt.slug %}" class="badge text-bg-info text-decoration-none">#{{ pt.name }}</a>
+              {% endfor %}
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <a href="{% url 'post_detail' post.slug %}" class="btn btn-sm btn-outline-secondary">Подробнее</a>
+              </div>
+              <small class="text-muted">{{ post.created_at|date:"d.m.Y" }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-12 text-center mt-5">
+        <p class="lead">Постов с таким тегом пока нет.</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends 'myblog/base.html' %}
+{% load static %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<!-- Розовая шапка с заголовком -->
+{% include 'myblog/block/header.html' %}
+
+<section class="my-post-detail">
+  <div class="container">
+    <div class="row">
+      
+      <!-- Левая колонка (Контент) -->
+      <div class="col-lg-8">
+        <nav aria-label="breadcrumb" class="my-4">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-pink">Главная</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ post.title }}</li>
+          </ol>
+        </nav>
+
+        {% if post.image %}
+          <img class="img-fluid rounded shadow-sm mb-3" src="{{ post.image.url }}" alt="{{ post.title }}">
+        {% endif %}
+        
+        <p class="lead">{{ post.content|safe }}</p>
+        <hr>
+
+        <!-- ТЕГИ ПОД ТЕКСТОМ -->
+        <div class="d-flex justify-content-end mb-3">
+          {% for tag in post.tags.all %}
+            <a href="{% url 'tag' tag.slug %}" class="badge text-bg-info me-1 text-decoration-none">#{{ tag.name }}</a>
+          {% endfor %}
+        </div>
+        <hr>
+
+        <div class="d-flex justify-content-between">
+          <div class="lead">Автор: <span class="text-pink fw-bold">{{ post.author.username }}</span></div>
+          <div>Опубликовано: {{ post.created_at|date:"d.m.Y" }}</div>
+        </div>
+        <hr>
+
+        <!-- Блок с комментариями -->
+        {% include 'myblog/block/comments.html' %}
+      </div>
+
+      <!-- Правая колонка (Сайдбар) -->
+      <div class="col-md-4">
+        
+        <!-- Категории -->
+        <div class="card my-4 border-0 shadow-sm">
+          <h5 class="card-header">Категория</h5>
+          <div class="card-body">
+            <div class="d-flex flex-wrap">
+              <a href="#" class="badge text-bg-info text-decoration-none">{{ post.category.title }}</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ТЕГИ В САЙДБАРЕ -->
+        <div class="card my-4 border-0 shadow-sm">
+          <h5 class="card-header">Теги</h5>
+          <div class="card-body">
+            <div class="d-flex flex-wrap">
+              {% for mt in common_tags %}
+                <a href="{% url 'tag' mt.slug %}" class="badge text-bg-info me-1 mb-1 text-decoration-none">#{{ mt.name }}</a>
+              {% empty %}
+                <span class="text-muted">Тегов пока нет.</span>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <!-- ПОСЛЕДНИЕ СТАТЬИ -->
+        <div class="card my-4 border-0 shadow-sm">
+          <h5 class="card-header">Последние статьи</h5>
+          
+          {% for lp in last_posts %}
+            <div class="card-body border-bottom">
+              {% if lp.image %}
+                <img src="{{ lp.image.url }}" alt="{{ lp.title }}" class="img-fluid rounded mb-2" style="max-height: 100px; object-fit: cover; width: 100%;">
+              {% endif %}
+              <h5 class="card-title">{{ lp.title }}</h5>
+              <p class="card-text text-muted">{{ lp.content|truncatechars:80 }}</p>
+              <a href="{% url 'post_detail' lp.slug %}" class="card-link text-pink">Подробнее</a>
+            </div>
+          {% empty %}
+            <div class="card-body">
+              <span class="text-muted">Статей пока нет.</span>
+            </div>
+          {% endfor %}
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

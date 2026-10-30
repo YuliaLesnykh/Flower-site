@@ -1,0 +1,58 @@
+{% extends 'myblog/base.html' %}
+
+{% block title %}Добавить пост — Блог о цветах{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <h2 class="mb-4">Добавить новый пост</h2>
+                    <p>Нет нужной категории? <a href="{% url 'add_category' %}">Создать новую</a></p>
+
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Заголовок</label>
+                            <input type="text" name="title" class="form-control" required placeholder="Например: Нарцисс">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">URL (латиницей, без пробелов)</label>
+                            <input type="text" name="slug" class="form-control" required placeholder="narciss">
+                            <small class="text-muted">Это будет адрес поста: /post/narciss/</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Категория</label>
+                            <select name="category" class="form-select" required>
+                                <option value="">Выберите категорию...</option>
+                                {% for cat in categories %}
+                                    <option value="{{ cat.id }}">{{ cat.title }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Текст поста</label>
+                            <textarea name="content" class="form-control" rows="6" required placeholder="Текст вашего поста..."></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Картинка (необязательно)</label>
+                            <input type="file" name="image" class="form-control">
+                        </div>
+
+                        <div class="mt-4">
+                            <button type="submit" class="btn btn-pink">Сохранить пост</button>
+                            <a href="{% url 'home' %}" class="btn btn-secondary">Отмена</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

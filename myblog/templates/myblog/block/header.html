@@ -1,0 +1,18 @@
+{% load static %}
+<section class="my-carousel">
+  <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="carousel-caption d-none d-md-block py-3">
+          <h1 class="m-0 text-white">
+            {% if post %}
+              {{ post.title }}
+            {% else %}
+              Блог о цветах
+            {% endif %}
+          </h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

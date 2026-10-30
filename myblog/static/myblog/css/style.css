@@ -1,0 +1,175 @@
+/* Слайдер */
+.my-carousel {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.my-carousel .carousel-item {
+    background-color: #e83e8c !important; /* Розовый фон вместо чёрного */
+}
+
+.my-carousel .carousel-caption {
+    position: static;
+    background: #e83e8c;
+    padding: 15px;
+    text-align: center;
+    color: #fff;
+}
+
+.my-carousel .carousel-caption h5,
+.my-carousel .carousel-caption h1 {
+    font-size: 24px;
+    color: #fff;
+    margin: 0;
+}
+
+/* Логотип-цветок */
+.flower-logo {
+    font-size: 28px;
+    text-decoration: none;
+}
+
+/* Розовая кнопка */
+.btn-pink {
+    background-color: #e83e8c;
+    border-color: #e83e8c;
+    color: #fff;
+}
+
+.btn-pink:hover,
+.btn-pink:focus {
+    background-color: #d63384;
+    border-color: #d63384;
+    color: #fff;
+}
+
+.btn-pink.active {
+    background-color: #b02a6b;
+    border-color: #b02a6b;
+}
+
+/* Карточки постов (главная) */
+.card img.card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.all-posts .card {
+    height: 100%;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.all-posts .card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.all-posts .card-body .card-text {
+    flex-grow: 1;
+}
+
+.all-posts .row {
+    row-gap: 2rem;
+}
+
+/* Пагинация */
+.my-pagination {
+    margin-top: 2rem;
+}
+
+/* Футер — розовый */
+.my-footer {
+    background-color: #fce4ec;
+    margin-top: 3rem;
+    padding: 1rem 0;
+}
+
+/* ====== Бегущие ряды цветов ====== */
+.flower-marquee {
+    width: 100vw;
+    overflow: hidden;
+    padding: 2rem 0;
+    background: #fce4ec;
+    margin-left: calc(50% - 50vw);
+}
+
+.flower-track {
+    display: flex;
+    gap: 1rem;
+    width: max-content;
+    animation: marquee 40s linear infinite;
+    margin-bottom: 1rem;
+}
+
+.flower-track:last-child {
+    margin-bottom: 0;
+}
+
+.flower-track--reverse {
+    animation-direction: reverse;
+}
+
+.flower-slide {
+    width: 200px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+}
+
+@keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-33.333%); }
+}
+
+/* ====== Розовые блоки на странице поста ====== */
+.card {
+    border: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.card-header {
+    background-color: #fce4ec !important;
+    color: #d63384 !important;
+    font-weight: bold;
+    border-bottom: 1px solid #f8bbd0;
+}
+
+.badge.text-bg-info {
+    background-color: #e83e8c !important;
+    color: #fff !important;
+    text-decoration: none;
+    padding: 8px 12px;
+}
+
+.text-primary, .text-pink {
+    color: #e83e8c !important;
+}
+
+.text-pink:hover {
+    color: #d63384 !important;
+}
+/* ====== Пагинация ====== */
+.page-link {
+    color: #e83e8c; /* Розовый текст для неактивных страниц */
+}
+
+.page-link:hover {
+    color: #d63384;
+    background-color: #fce4ec;
+    border-color: #f8bbd0;
+}
+
+.page-item.active .page-link {
+    background-color: #e83e8c !important;
+    border-color: #e83e8c !important;
+    color: #fff !important;
+}
+
+.page-item.disabled .page-link {
+    color: #ccc;
+}

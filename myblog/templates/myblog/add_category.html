@@ -1,0 +1,36 @@
+{% extends 'myblog/base.html' %}
+
+{% block title %}Добавить категорию — Блог о цветах{% endblock %} 
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <h2 class="mb-4">Добавить категорию</h2>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Название категории</label>
+                            <input type="text" name="title" class="form-control" required placeholder="Например: Садовые">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">URL (латиницей)</label>
+                            <input type="text" name="slug" class="form-control" required placeholder="sadovye">
+                        </div>
+
+                        <div class="mt-4">
+                            <button type="submit" class="btn btn-pink">Создать</button>
+                            <a href="{% url 'add_post' %}" class="btn btn-secondary">Назад к посту</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

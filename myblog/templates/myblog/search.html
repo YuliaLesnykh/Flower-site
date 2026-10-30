@@ -1,0 +1,72 @@
+{% extends 'myblog/base.html' %}
+
+{% block title %}Поиск — Блог о цветах{% endblock %}
+
+{% block content %}
+<!-- Розовый заголовок с формой поиска -->
+<section class="my-carousel">
+  <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="carousel-caption d-none d-md-block py-3">
+          <form action="{% url 'search' %}" method="get" class="d-flex justify-content-center">
+            <input type="text" name="q" class="form-control me-2" style="max-width: 400px;" placeholder="Что ищем?" value="{{ query|default:'' }}">
+            <button class="btn btn-light" type="submit">Поиск</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Результаты поиска -->
+<section class="all-posts mt-4">
+  <div class="container">
+    
+    <nav aria-label="breadcrumb" class="my-4">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-pink">Главная</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Поиск</li>
+      </ol>
+    </nav>
+
+    <h2 class="mb-4">
+      {% if query %}
+        Результаты по запросу: «<span class="text-pink">{{ query }}</span>» (найдено: {{ posts|length }})
+      {% else %}
+        Введите запрос в поле выше
+      {% endif %}
+    </h2>
+
+    <div class="row">
+      {% for post in posts %}
+      <div class="col-md-4">
+        <div class="card mb-4 shadow-sm border-0">
+          {% if post.image %}
+            <img src="{{ post.image.url }}" alt="{{ post.title }}" class="card-img-top">
+          {% endif %}
+          <div class="card-body">
+            <h4 class="card-title">{{ post.title }}</h4>
+            <p class="card-text">{{ post.content|truncatechars:100 }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <a href="{% url 'post_detail' post.slug %}" class="btn btn-sm btn-outline-secondary">Подробнее</a>
+              </div>
+              <small class="text-muted">{{ post.created_at|date:"d.m.Y" }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-12 text-center mt-5">
+        {% if query %}
+          <p class="lead">По вашему запросу «{{ query }}» ничего не найдено.</p>
+          <a href="{% url 'home' %}" class="btn btn-pink mt-3">На главную</a>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    
+  </div>
+</section>
+{% endblock %}
