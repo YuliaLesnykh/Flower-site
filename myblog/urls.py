@@ -12,5 +12,5 @@ urlpatterns = [
     path('add-category/', views.add_category, name='add_category'),
     path('logout/', views.logout_view, name='logout'),
     path('thanks/', views.thanks, name='thanks'),
-    path('tag/<slug:slug>/', views.tag_view, name='tag'), # <-- НОВЫЙ ПУТЬ
+    path('tag/<slug:slug>/', views.tag_view, name='tag'), 
 ]

@@ -18,7 +18,6 @@ class PostAdmin(admin.ModelAdmin):
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    # Заменили created_at на created_date
     list_display = ('name', 'post', 'created_date', 'short_text')
     list_filter = ('created_date',)
     search_fields = ('name', 'text', 'post__title')

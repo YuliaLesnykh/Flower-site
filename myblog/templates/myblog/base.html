@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Блог о цветах{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'myblog/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'myblog/css/style.css' %}"> 
   </head>
   <body>
 
@@ -41,7 +41,7 @@
               <button class="btn btn-pink" type="submit">Найти</button>
             </form>
 
-            <!-- Блок пользователя (вне формы поиска) -->
+            <!-- Блок пользователя  -->
             <div class="d-flex align-items-center">
               {% if user.is_staff %}
                 <a href="{% url 'add_post' %}" class="btn btn-outline-light me-2">+ Пост</a>

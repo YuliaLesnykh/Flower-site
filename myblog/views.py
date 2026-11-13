@@ -13,18 +13,18 @@ from .forms import SignUpForm, SignInForm, FeedBackForm, CommentForm
 
 
 def home(request):
-    posts_list = Post.objects.filter(is_published=True).order_by('-created_at')
-    paginator = Paginator(posts_list, 6)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    return render(request, 'myblog/index.html', {'page_obj': page_obj})
+    posts_list = Post.objects.filter(is_published=True).order_by('-created_at') 
+    paginator = Paginator(posts_list, 6) 
+    page_number = request.GET.get('page') # номер стр
+    page_obj = paginator.get_page(page_number) # объект с постами для стр
+    return render(request, 'myblog/index.html', {'page_obj': page_obj}) # отправка в шаблон index
 
 
-def post_detail(request, slug):
+def post_detail(request, slug): # стр одного поста
     post = get_object_or_404(Post, slug=slug)
 
-    common_tags = Post.tags.most_common()[:10]
-    last_posts = Post.objects.filter(is_published=True).order_by('-created_at')[:5]
+    common_tags = Post.tags.most_common()[:10] # самые поп теги
+    last_posts = Post.objects.filter(is_published=True).order_by('-created_at')[:5] 
 
     if request.method == 'POST':
         if request.user.is_authenticated:
@@ -74,8 +74,8 @@ def contact(request):
                 send_mail(
                     f'От {name} | {subject}',
                     f'Сообщение от: {name}\nEmail: {from_email}\n\n{message}',
-                    'poropororo.Hh@yandex.ru',  # <-- ТУТ ТВОЯ ПОЧТА (от кого)
-                    ['poropororo.Hh@yandex.ru'],  # <-- ТУТ ТВОЯ ПОЧТА (кому)
+                    'poropororo.Hh@yandex.ru', 
+                    ['poropororo.Hh@yandex.ru'],  
                 )
             except BadHeaderError:
                 return HttpResponse('Невалидный заголовок')
@@ -136,7 +136,7 @@ def tag_view(request, slug):
     })
 
 
-@staff_member_required
+@staff_member_required # защита от обычных пользователей
 def add_post(request):
     if request.method == 'POST':
         title = request.POST.get('title')
@@ -163,4 +163,4 @@ def add_category(request):
         if title and slug:
             Category.objects.create(title=title, slug=slug)
             return redirect('add_post')
-    return render(request, 'myblog/add_category.html')
+    return render(request, 'myblog/add_category.html') 

@@ -132,13 +132,13 @@ MAILERS = {
         'OPTIONS': {
             'host': 'smtp.yandex.ru',
             'port': 465,
-            'username': 'poropororo.Hh@yandex.ru',   # <-- Твоя почта
-            'password': 'pqlavjbbkpxxpruc',          # <-- Пароль приложения
+            'username': 'poropororo.Hh@yandex.ru',   
+            'password': 'pqlavjbbkpxxpruc',          
             'use_ssl': True,
             'use_tls': False,
             'timeout': None,
         },
     },
-}  # <-- ВОТ ЭТУ СКОБКУ НУЖНО БЫЛО ЗАКРЫТЬ
+}  
 
 TAGGIT_STRIP_UNICODE = True
